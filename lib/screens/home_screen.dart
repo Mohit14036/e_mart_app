@@ -1,4 +1,3 @@
-// lib/screens/home_screen.dart
 import 'package:e_mart_app/models/my_product.dart';
 import 'package:e_mart_app/screens/product_detail_screen.dart';
 import 'package:flutter/cupertino.dart';

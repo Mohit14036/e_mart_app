@@ -20,10 +20,8 @@ class _LoginScreenState extends State<LoginScreen> {
         password: password,
       );
       print('Logged in user: ${userCredential.user}');
-      // Navigate to home screen or any other screen after successful login
     } catch (e) {
       print('Failed to login: $e');
-      // Handle login failure
     }
   }
 

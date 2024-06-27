@@ -1,4 +1,3 @@
-// lib/screens/favorite_screen.dart
 import 'package:flutter/material.dart';
 import '../providers/cart_provider.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';

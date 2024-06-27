@@ -23,17 +23,7 @@ class ProductListScreen extends StatelessWidget {
           child: _buildProducts(categoryTitle),
         ),
       ),
-      /*body: GridView.builder(
-        padding: const EdgeInsets.all(10.0),
-        itemCount: products.length,
-        itemBuilder: (ctx, i) => ProductItem(products[i]),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 3 / 2,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-        ),
-      ),*/
+
     );
 
   }Widget _buildProducts(categoryTitle){

@@ -38,10 +38,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         context,
         MaterialPageRoute(builder: (context) => HomeScreen()), // Replace HomeScreen with your home screen widget
       );
-      // Navigate to home screen or any other screen after successful sign up
+
     } catch (e) {
       print('Failed to sign up: $e');
-      // Handle sign up failure
+
     }
   }
 

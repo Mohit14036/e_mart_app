@@ -1,4 +1,3 @@
-// lib/screens/bottom_nav_screen.dart
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
 import 'cart_screen.dart';

@@ -1,4 +1,4 @@
-// lib/providers/cart_provider.dart
+
 import 'package:flutter/material.dart';
 import '../models/product.dart';
 import 'package:provider/provider.dart';

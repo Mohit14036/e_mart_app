@@ -1,4 +1,3 @@
-// lib/widgets/product_item.dart
 import 'package:e_mart_app/providers/cart_provider.dart';
 import 'package:flutter/material.dart';
 import '../models/product.dart';
