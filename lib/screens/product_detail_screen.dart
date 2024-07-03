@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/cart_items_provider.dart';
 import 'package:e_mart_app/models/product.dart';
 import 'package:e_mart_app/screens/cart_screen.dart';
-import 'package:e_mart_app/widgets/avaliable_option.dart';
+import 'package:e_mart_app/providers/cart_items_provider.dart';
+import 'package:e_mart_app/widgets/avaliable_option.dart'; // Corrected import path for AvailableOption widget
+import '../services/user_service.dart'; // Import the UserService
 
 class ProductDetailScreen extends StatelessWidget {
   final Product product;
-  const ProductDetailScreen({super.key, required this.product});
 
+  const ProductDetailScreen({Key? key, required this.product}) : super(key: key);
+
+  // Method to build available options based on product category
   Widget _buildAvailableOptions(Product product) {
     switch (product.category) {
       case 'electronics':
@@ -30,11 +33,11 @@ class ProductDetailScreen extends StatelessWidget {
                 AvaliableOption(option: '256GB'),
               ],
             ),
-            const SizedBox(height: 8.0,),
+            const SizedBox(height: 8.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
-                Text("Avaliable Colors",style: TextStyle(
+                Text("Available Colors", style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),)
@@ -42,7 +45,7 @@ class ProductDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 8.0,),
             Row(
-              children: const[
+              children: const [
                 CircleAvatar(
                   radius: 16,
                   backgroundColor: Colors.black,
@@ -85,7 +88,7 @@ class ProductDetailScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
-                Text("Avaliable Colors",style: TextStyle(
+                Text("Available Colors", style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),)
@@ -93,7 +96,7 @@ class ProductDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 8.0,),
             Row(
-              children: const[
+              children: const [
                 CircleAvatar(
                   radius: 16,
                   backgroundColor: Colors.green,
@@ -120,7 +123,6 @@ class ProductDetailScreen extends StatelessWidget {
                 ),
               ],
             ),
-
           ],
         );
       default:
@@ -130,7 +132,9 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = CartItemsProvider.of(context);
+    final provider = Provider.of<CartItemsProvider>(context);
+    final UserService userService = UserService(); // Create an instance of UserService
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Details'),
@@ -218,14 +222,27 @@ class ProductDetailScreen extends StatelessWidget {
                 ),
               ),
               ElevatedButton.icon(
-                onPressed: () {
-                  provider.toggleProduct(product);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CartScreen(),
-                    ),
-                  );
+                onPressed: () async {
+                  try {
+                    // Add the current product to the Firestore cart
+                    await userService.addToCart([product]);
+
+                    // Add the product to the local provider's cart
+                    provider.toggleProduct(product);
+
+                    // Navigate to the CartScreen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CartScreen(),
+                      ),
+                    );
+                  } catch (e) {
+                    print("Error adding to cart: $e");
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Failed to add to cart: $e')),
+                    );
+                  }
                 },
                 icon: const Icon(Icons.add_shopping_cart),
                 label: const Text('Add to Cart'),
